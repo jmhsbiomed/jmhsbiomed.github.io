@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Biomedical Research Society</title>
+<meta name="description" content="A student-run club that rewrites published scientific research so people our age can actually read it.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Newsreader:opsz,wght@6..72,300;6..72,400;6..72,600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --paper:#FBF9FC;
+  --paper-2:#F2EDF6;
+  --ink:#241D2E;
+  --ink-soft:#5F5570;
+  --violet:#5B2E90;
+  --violet-deep:#37195C;
+  --eosin:#DB5A76;
+  --agar:#CFE3B0;
+  --rule:#E3DAEC;
+  --display:"Bricolage Grotesque",system-ui,sans-serif;
+  --body:"Newsreader",Georgia,serif;
+  --mono:"DM Mono",ui-monospace,monospace;
+  --wrap:960px;
+  --pad:clamp(20px,5vw,48px);
+}
+*,*::before,*::after{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto;}
+  *,*::before,*::after{animation-duration:.001ms!important;transition-duration:.001ms!important;}
+}
+body{
+  margin:0;
+  background-color:var(--paper);
+  background-image:
+    linear-gradient(to right,rgba(91,46,144,.05) 1px,transparent 1px),
+    linear-gradient(to bottom,rgba(91,46,144,.05) 1px,transparent 1px);
+  background-size:26px 26px;
+  color:var(--ink);
+  font-family:var(--body);
+  font-size:18px;
+  line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--violet);}
+:focus-visible{outline:2.5px solid var(--eosin);outline-offset:3px;}
+.wrap{max-width:var(--wrap);margin-inline:auto;padding-inline:var(--pad);}
+
+.tape{
+  display:inline-block;
+  font-family:var(--mono);
+  font-size:.66rem;font-weight:500;
+  letter-spacing:.16em;text-transform:uppercase;
+  padding:.42em .95em .38em;
+  background:var(--agar);color:#33421F;
+  transform:rotate(-.7deg);
+  clip-path:polygon(1% 4%,99% 0%,100% 96%,0% 100%);
+}
+.tape--violet{background:#DCCFEC;color:var(--violet-deep);}
+.tape--eosin{background:#F6D4DC;color:#7C2437;}
+
+/* nav */
+.nav{position:sticky;top:0;z-index:60;background:rgba(251,249,252,.88);backdrop-filter:blur(10px);border-bottom:1px solid var(--rule);}
+.nav__inner{display:flex;align-items:center;gap:24px;min-height:64px;}
+.brand{display:flex;align-items:center;gap:11px;text-decoration:none;color:var(--ink);margin-right:auto;}
+.brand b{font-family:var(--display);font-weight:800;font-size:.98rem;letter-spacing:-.015em;}
+.nav__links{display:flex;gap:24px;}
+.nav__links a{font-family:var(--mono);font-size:.74rem;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;color:var(--ink-soft);padding-block:6px;border-bottom:1.5px solid transparent;transition:color .18s,border-color .18s;}
+.nav__links a:hover{color:var(--violet);border-color:var(--eosin);}
+@media (max-width:640px){.nav__links{display:none;}}
+
+/* hero */
+.hero{position:relative;overflow:hidden;}
+.hero__stain{position:absolute;inset:-14%;z-index:0;pointer-events:none;filter:blur(58px);opacity:.45;
+  background:
+    radial-gradient(30% 34% at 16% 28%,rgba(91,46,144,.5),transparent 62%),
+    radial-gradient(26% 30% at 78% 20%,rgba(219,90,118,.45),transparent 64%),
+    radial-gradient(32% 36% at 60% 76%,rgba(91,46,144,.3),transparent 66%),
+    radial-gradient(18% 22% at 90% 60%,rgba(140,190,90,.28),transparent 64%);
+}
+.hero__inner{position:relative;z-index:1;padding-block:clamp(56px,9vw,104px) clamp(48px,7vw,80px);max-width:720px;}
+.hero h1{font-family:var(--display);font-weight:800;font-size:clamp(2.6rem,7.6vw,4.6rem);line-height:.98;letter-spacing:-.032em;margin:20px 0 0;}
+.hero h1 em{font-style:normal;color:var(--violet);}
+.hero__lede{font-size:clamp(1.08rem,2.2vw,1.3rem);line-height:1.5;color:var(--ink-soft);max-width:52ch;margin:22px 0 0;}
+.btn-row{display:flex;flex-wrap:wrap;gap:14px;margin-top:32px;}
+.btn{display:inline-flex;align-items:center;gap:9px;font-family:var(--mono);font-size:.78rem;letter-spacing:.07em;text-transform:uppercase;text-decoration:none;padding:14px 24px;border:1.5px solid var(--violet-deep);background:var(--violet-deep);color:#FBF9FC;cursor:pointer;transition:transform .16s ease,background .16s;}
+.btn:hover{transform:translateY(-2px);background:var(--violet);}
+.btn--ghost{background:transparent;color:var(--violet-deep);}
+.btn--ghost:hover{background:var(--violet-deep);color:#FBF9FC;}
+
+/* sections */
+.section{padding-block:clamp(52px,7vw,84px);}
+.section--tint{background:var(--paper-2);border-block:1px solid var(--rule);}
+.section__head{max-width:58ch;margin-bottom:40px;}
+.section__head h2{font-family:var(--display);font-weight:600;font-size:clamp(1.8rem,4.2vw,2.7rem);line-height:1.06;letter-spacing:-.028em;margin:18px 0 0;}
+.section__head p{color:var(--ink-soft);margin:14px 0 0;font-size:1.04rem;}
+.about-title{font-family:var(--display);font-weight:600;font-size:clamp(1.8rem,4.2vw,2.7rem);line-height:1.06;letter-spacing:-.028em;margin:18px 0 22px;}
+.prose{max-width:62ch;}
+.prose p{margin:0 0 18px;}
+.prose p:last-child{margin-bottom:0;}
+
+/* articles */
+.posts{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:20px;}
+.post{border:1.5px solid var(--ink);background:var(--paper);padding:24px 22px 26px;text-align:left;font:inherit;color:inherit;cursor:pointer;display:flex;flex-direction:column;gap:12px;transition:transform .18s ease,box-shadow .18s ease;}
+.post:hover{transform:translateY(-3px);box-shadow:7px 7px 0 var(--violet-deep);}
+.post__cat{font-family:var(--mono);font-size:.62rem;letter-spacing:.15em;text-transform:uppercase;color:var(--violet);}
+.post h3{font-family:var(--display);font-weight:600;font-size:1.28rem;line-height:1.16;letter-spacing:-.02em;margin:0;}
+.post__dek{margin:0;font-size:.98rem;line-height:1.5;color:var(--ink-soft);flex:1;}
+.post__meta{font-family:var(--mono);font-size:.64rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft);border-top:1px solid var(--rule);padding-top:12px;}
+.post__body{display:none;}
+
+/* reader */
+.reader{position:fixed;inset:0;z-index:100;background:rgba(36,29,46,.55);backdrop-filter:blur(3px);display:none;padding:clamp(12px,4vw,48px);overflow-y:auto;}
+.reader[open-state="1"]{display:block;}
+.reader__panel{max-width:700px;margin-inline:auto;background:var(--paper);border:1.5px solid var(--ink);padding:clamp(26px,5vw,50px);}
+.reader__close{font-family:var(--mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;background:none;border:1.5px solid var(--ink);padding:9px 16px;cursor:pointer;color:var(--ink);margin-bottom:24px;}
+.reader__close:hover{background:var(--ink);color:var(--paper);}
+#readerTitle{font-family:var(--display);font-weight:800;font-size:clamp(1.7rem,4.2vw,2.4rem);line-height:1.05;letter-spacing:-.028em;margin:12px 0 10px;}
+#readerMeta{font-family:var(--mono);font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft);border-bottom:1px solid var(--rule);padding-bottom:18px;margin-bottom:24px;}
+#readerBody{font-size:1.05rem;}
+#readerBody p{margin:0 0 18px;}
+#readerBody h4{font-family:var(--display);font-weight:600;font-size:1.12rem;margin:28px 0 8px;}
+#readerBody .post__src{font-family:var(--mono);font-size:.74rem;line-height:1.6;color:var(--ink-soft);border-top:1px solid var(--rule);padding-top:16px;margin-top:30px;}
+
+/* contact */
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(28px,5vw,56px);align-items:start;}
+@media (max-width:780px){.contact-grid{grid-template-columns:1fr;}}
+.form{display:grid;gap:18px;}
+.field label{display:block;font-family:var(--mono);font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:7px;}
+.field input,.field textarea{width:100%;font-family:var(--body);font-size:1rem;padding:12px 14px;border:1.5px solid var(--ink);background:var(--paper);color:var(--ink);border-radius:0;}
+.field textarea{min-height:130px;resize:vertical;}
+.field input:focus,.field textarea:focus{outline:2.5px solid var(--eosin);outline-offset:1px;}
+.sidecard{border:1.5px solid var(--ink);background:var(--paper);padding:26px 24px;}
+.sidecard h3{font-family:var(--display);font-weight:600;font-size:1.12rem;margin:0 0 8px;letter-spacing:-.015em;}
+.sidecard h3+p{margin-bottom:20px;}
+.sidecard p{margin:0;font-size:1rem;line-height:1.5;color:var(--ink-soft);}
+.sidecard p:last-child{margin-bottom:0;}
+
+/* footer */
+.footer{background:var(--violet-deep);color:#E9E1F2;padding-block:40px;}
+.footer a{color:#E9E1F2;}
+.footer__inner{display:flex;flex-wrap:wrap;gap:20px;justify-content:space-between;align-items:center;font-family:var(--mono);font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="wrap nav__inner">
+    <a class="brand" href="#top">
+      <svg width="32" height="32" viewBox="0 0 34 34" aria-hidden="true">
+        <circle cx="17" cy="17" r="15.2" fill="none" stroke="#5B2E90" stroke-width="1.6"/>
+        <circle cx="17" cy="17" r="11.4" fill="none" stroke="#5B2E90" stroke-width=".8" opacity=".45"/>
+        <circle cx="12.6" cy="13.4" r="2.5" fill="#DB5A76"/>
+        <circle cx="21.3" cy="15.6" r="1.7" fill="#5B2E90"/>
+        <circle cx="16.4" cy="22.2" r="2.1" fill="#8CBE5A"/>
+      </svg>
+      <b>Biomedical Research Society</b>
+    </a>
+    <div class="nav__links">
+      <a href="#about">About</a>
+      <a href="#articles">Articles</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <div class="hero__stain" aria-hidden="true"></div>
+  <div class="wrap hero__inner">
+    <span class="tape">Student-run science writing</span>
+    <h1>We read the dense papers and <em>write the clear version</em>.</h1>
+    <p class="hero__lede">
+      A student-run club that takes complex scientific research and turns it into clear,
+      honest explanations written for people our age.
+    </p>
+    <div class="btn-row">
+      <a class="btn" href="#articles">Read our articles</a>
+      <a class="btn btn--ghost" href="#contact">Get in touch</a>
+    </div>
+  </div>
+</header>
+
+<section class="section" id="about">
+  <div class="wrap">
+    <span class="tape tape--violet">About</span>
+    <h2 class="about-title">Research papers are written for other researchers.</h2>
+    <div class="prose">
+      <p>
+        That is the whole problem. A study can be genuinely interesting and still be locked behind
+        jargon, hedged phrasing, and a structure built for people who already know the field. The
+        findings are not the hard part. The writing is.
+      </p>
+      <p>
+        So that is what we do. A member picks a recently published paper, reads it closely enough to
+        know what it actually claims, and writes a version a high schooler can follow. Without
+        turning it into a headline that promises more than the study found.
+      </p>
+      <p>
+        We keep the limitations in. If a result came from forty people, or mice, or a single lab, we
+        say so. Translating research badly is worse than not translating it at all, and most science
+        coverage aimed at young people gets this wrong.
+      </p>
+    </div>
+  </div>
+</section>
+
+<section class="section section--tint" id="articles">
+  <div class="wrap">
+    <div class="section__head">
+      <span class="tape tape--eosin">Articles</span>
+      <h2>What we have been writing</h2>
+      <p>Each one starts with a published paper, linked at the bottom so you can check our work. Click any entry to read it.</p>
+    </div>
+
+    <!--
+      ============================================================
+      HOW TO ADD AN ARTICLE
+      ============================================================
+      Copy one entire <article class="post"> ... </article> block,
+      paste it directly below this comment, then change five things:
+
+        1. .post__cat   - the category label
+        2. <h3>         - the article title
+        3. .post__dek   - one-sentence summary shown on the card
+           (and the .post__src line at the end of the body, which
+            links the original paper you are writing about)
+        4. .post__meta  - author and date
+        5. .post__body  - the full article text
+
+      Inside .post__body use <p> for paragraphs and <h4> for subheadings.
+      Newest article goes at the TOP. Delete the placeholders below.
+      ============================================================
+    -->
+
+    <div class="posts">
+
+      <article class="post" tabindex="0" role="button" aria-label="Read article">
+        <div class="post__cat">Category</div>
+        <h3>Placeholder article title goes here</h3>
+        <p class="post__dek">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p>
+        <div class="post__meta">Author name &middot; Month Year</div>
+        <div class="post__body">
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+          <h4>Subheading</h4>
+          <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+          <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
+          <h4>Another subheading</h4>
+          <p>Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.</p>
+          <p class="post__src">Original paper: <a href="#">Author et al. (Year). Title of the study. Journal Name.</a></p>
+        </div>
+      </article>
+
+      <article class="post" tabindex="0" role="button" aria-label="Read article">
+        <div class="post__cat">Category</div>
+        <h3>Second placeholder article title</h3>
+        <p class="post__dek">Neque porro quisquam est qui dolorem ipsum quia dolor sit amet consectetur adipisci velit.</p>
+        <div class="post__meta">Author name &middot; Month Year</div>
+        <div class="post__body">
+          <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident.</p>
+          <h4>Subheading</h4>
+          <p>Similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio.</p>
+          <p>Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est.</p>
+          <p class="post__src">Original paper: <a href="#">Author et al. (Year). Title of the study. Journal Name.</a></p>
+        </div>
+      </article>
+
+      <article class="post" tabindex="0" role="button" aria-label="Read article">
+        <div class="post__cat">Category</div>
+        <h3>Third placeholder article title</h3>
+        <p class="post__dek">Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet.</p>
+        <div class="post__meta">Author name &middot; Month Year</div>
+        <div class="post__body">
+          <p>Ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat. Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur.</p>
+          <h4>Subheading</h4>
+          <p>Vel illum qui dolorem eum fugiat quo voluptas nulla pariatur. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.</p>
+          <p class="post__src">Original paper: <a href="#">Author et al. (Year). Title of the study. Journal Name.</a></p>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<section class="section" id="contact">
+  <div class="wrap">
+    <div class="section__head">
+      <span class="tape">Contact</span>
+      <h2>Get in touch</h2>
+      <p>Got a question, a correction, or a paper you think we should write about? Send us a message.</p>
+    </div>
+
+    <div class="contact-grid">
+      <!--
+        ============================================================
+        CONTACT FORM - ONE SETUP STEP NEEDED TO ACTUALLY SEND
+        ============================================================
+        A plain HTML page cannot send email on its own. To make this
+        form deliver to an inbox:
+
+          1. Go to formspree.io and create a free account
+          2. Create a new form and set the destination email address
+          3. Copy the endpoint URL they give you, which looks like:
+                 https://formspree.io/f/abcdwxyz
+          4. Paste it into the action="" attribute below, replacing
+             YOUR_FORM_ID_HERE
+
+        Until that is done, the form will not send anything. The email
+        link in the card on the right works right now with no setup.
+        ============================================================
+      -->
+      <form class="form" action="https://formspree.io/f/YOUR_FORM_ID_HERE" method="POST">
+        <div class="field">
+          <label for="name">Your name</label>
+          <input id="name" name="name" type="text" autocomplete="name" required>
+        </div>
+        <div class="field">
+          <label for="email">Email</label>
+          <input id="email" name="email" type="email" autocomplete="email" required>
+        </div>
+        <div class="field">
+          <label for="msg">Message</label>
+          <textarea id="msg" name="message" required placeholder="Tell us what you need."></textarea>
+        </div>
+        <div>
+          <button class="btn" type="submit">Send message</button>
+        </div>
+      </form>
+
+      <div class="sidecard">
+        <h3>Email us directly</h3>
+        <p><a href="mailto:jmhsbrsociety@gmail.com">jmhsbrsociety@gmail.com</a></p>
+
+        <h3>About our membership</h3>
+        <p>We are a school-based club, and membership is limited to students at John Marshall Senior High School. We are always glad to hear from readers outside it.</p>
+
+        <h3>Supporting the club</h3>
+        <p>If you would like to contribute to our supplies or event costs, email us and we will point you to the right place.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="wrap footer__inner">
+    <div>Biomedical Research Society &middot; John Marshall Senior High School</div>
+    <div><a href="#top">Back to top &uarr;</a></div>
+  </div>
+</footer>
+
+<div class="reader" id="reader" role="dialog" aria-modal="true" aria-labelledby="readerTitle">
+  <div class="reader__panel">
+    <button class="reader__close" id="readerClose">&larr; Close</button>
+    <div id="readerCat" class="post__cat"></div>
+    <h2 id="readerTitle"></h2>
+    <div id="readerMeta"></div>
+    <div id="readerBody"></div>
+  </div>
+</div>
+
+<script>
+(function(){
+  var reader=document.getElementById('reader');
+  var panel=reader.querySelector('.reader__panel');
+  var lastFocused=null;
+  function openPost(card){
+    lastFocused=card;
+    document.getElementById('readerCat').textContent=card.querySelector('.post__cat').textContent;
+    document.getElementById('readerTitle').textContent=card.querySelector('h3').textContent;
+    document.getElementById('readerMeta').textContent=card.querySelector('.post__meta').textContent;
+    document.getElementById('readerBody').innerHTML=card.querySelector('.post__body').innerHTML;
+    reader.setAttribute('open-state','1');
+    document.body.style.overflow='hidden';
+    panel.scrollIntoView();
+    document.getElementById('readerClose').focus();
+  }
+  function closePost(){
+    reader.removeAttribute('open-state');
+    document.body.style.overflow='';
+    if(lastFocused)lastFocused.focus();
+  }
+  document.querySelectorAll('.post').forEach(function(card){
+    card.addEventListener('click',function(){openPost(card);});
+    card.addEventListener('keydown',function(e){
+      if(e.key==='Enter'||e.key===' '){e.preventDefault();openPost(card);}
+    });
+  });
+  document.getElementById('readerClose').addEventListener('click',closePost);
+  reader.addEventListener('click',function(e){if(e.target===reader)closePost();});
+  document.addEventListener('keydown',function(e){
+    if(e.key==='Escape'&&reader.hasAttribute('open-state'))closePost();
+  });
+})();
+</script>
+
+</body>
+</html>
